@@ -1,11 +1,19 @@
 import { useState, ChangeEvent } from "react";
+import { useSearchParams } from "react-router-dom";
 import DATASET from "./data";
 
 const App = () => {
-    const [query, setQuery] = useState<string>("");
+    const [searchParams, setSearchParams] = useSearchParams("");
+    const [query, setQuery] = useState<string>(searchParams.get("value") || "");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { value }: { value: string } = e.target;
+
+        if (value) {
+            setSearchParams({ value: value });
+        } else {
+            setSearchParams({});
+        }
 
         setQuery(value);
     };

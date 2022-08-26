@@ -1,5 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+} from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -8,7 +14,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <App />
+        <Router>
+            <Routes>
+                <Route path="/search" element={<App />}></Route>
+                <Route path="*" element={<Navigate to="/search" />}></Route>
+            </Routes>
+        </Router>
     </React.StrictMode>
 );
 
