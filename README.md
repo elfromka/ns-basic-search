@@ -1,2 +1,2 @@
 # ns-basic-search
-Basic search with real-time filtering of the dataset.
+React.js SPA real-time filtering of the dataset.
