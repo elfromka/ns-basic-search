@@ -1,8 +1,18 @@
 import { useState, ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
+import DataList from "./components/DataList";
+import SearchBar from "./components/SearchBar";
 import DATASET from "./data";
+/** @jsxImportSource @emotion/react */
+import { mainStyles, sectionStyles, titleStyles } from "./styles/App.styled";
+import "./styles/style-reset.css";
 
-const App = () => {
+/**
+ * Renders a search bar element and an list element of data to be filtered on.
+ *
+ * @return {JSX.Element} container of search bar and filter list.
+ */
+const App: React.FC = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams("");
     const [query, setQuery] = useState<string>(searchParams.get("value") || "");
 
@@ -18,28 +28,12 @@ const App = () => {
         setQuery(value);
     };
 
-    const dataToDisplay: string[] = DATASET.filter((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
-    );
-
     return (
-        <main>
-            <section>
-                <h1>Basic search</h1>
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Filter..."
-                    value={query}
-                    onChange={handleChange}
-                />
-                <ul>
-                    {dataToDisplay.length > 0 &&
-                        dataToDisplay
-                            .filter((name) => name)
-                            .map((name) => <li key={name}>{name}</li>)}
-                    {dataToDisplay.length === 0 && <p>No match found</p>}
-                </ul>
+        <main css={mainStyles}>
+            <section css={sectionStyles}>
+                <h1 css={titleStyles}>Basic search</h1>
+                <SearchBar query={query} handleChange={handleChange} />
+                <DataList data={DATASET} query={query} />
             </section>
         </main>
     );
